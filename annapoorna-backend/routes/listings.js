@@ -4,8 +4,10 @@ const auth = require('../middleware/auth');
 const FoodListing = require('../models/FoodListing');
 const upload = require('../middleware/upload');
 
+// ✅ FIXED: Changed '/create' to '/'
+// This now matches POST /api/listings
 router.post(
-  '/create',
+  '/', 
   auth,
   upload.single('foodImage'),
   async (req, res) => {
@@ -14,6 +16,7 @@ router.post(
     }
 
     try {
+      // Fix backslash issues in windows paths
       const imagePath = req.file ? req.file.path.replace(/\\/g, "/") : null;
       
       let locationData = req.body.location;
@@ -47,9 +50,17 @@ router.post(
   }
 );
 
-router.get('/donor', auth, async (req, res) => {
+// ✅ FIXED: Changed '/explore' to '/' 
+// This now matches GET /api/listings (Used by ReceiverFeed.jsx)
+router.get('/', auth, async (req, res) => {
   try {
-    const listings = await FoodListing.find({ user: req.user.id }).sort({ datePosted: -1 });
+    const listings = await FoodListing.find({ 
+      status: 'available',
+      //user: { $ne: req.user.id } 
+    })
+    .sort({ datePosted: -1 })
+    .populate('user', ['name', 'phone']);
+
     res.json(listings);
   } catch (err) {
     console.error(err.message);
@@ -57,15 +68,10 @@ router.get('/donor', auth, async (req, res) => {
   }
 });
 
-router.get('/explore', auth, async (req, res) => {
+// Gets listings for the current logged-in donor
+router.get('/donor', auth, async (req, res) => {
   try {
-    const listings = await FoodListing.find({ 
-      status: 'available',
-      user: { $ne: req.user.id } 
-    })
-    .sort({ datePosted: -1 })
-    .populate('user', ['name', 'phone']);
-
+    const listings = await FoodListing.find({ user: req.user.id }).sort({ datePosted: -1 });
     res.json(listings);
   } catch (err) {
     console.error(err.message);

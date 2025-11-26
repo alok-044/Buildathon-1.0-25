@@ -17,7 +17,23 @@ const UserSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ['donor', 'receiver', 'admin'],
-    default: 'receiver',
+    default: 'donor',
+  },
+  // ✅ Added missing fields required by auth.js
+  phone: { 
+    type: String, 
+    default: '' 
+  },
+  address: { 
+    type: String, 
+    default: '' 
+  },
+  ngoDocumentUrl: { 
+    type: String 
+  },
+  isVerified: { 
+    type: Boolean, 
+    default: false 
   },
   avatar: {
     type: String, 
