@@ -3,7 +3,7 @@ import { AuthProvider } from './contexts/AuthContext';
 
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import Cursor from './components/Cursor';
+import Cursor from './components/cursor';
 
 import HomePage from './Pages/HomePage'; 
 import LoginPage from './Pages/LoginPage'; 
