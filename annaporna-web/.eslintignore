@@ -1,0 +1,5 @@
+# Ignore server and build artifacts
+annapoorna-server/
+node_modules/
+dist/
+.vscode/

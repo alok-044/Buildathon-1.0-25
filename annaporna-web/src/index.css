@@ -1,1 +1,172 @@
+/* src/index.css */
 @import "tailwindcss";
+
+:root {
+  --hex-orange-1: #EA580C; 
+  --hex-red-1: #DC2626;    
+}
+
+.square {
+  border-width: 2px; 
+  border-style: solid;
+}
+
+@keyframes shine {
+  0% { background-position: 100%; }
+  100% { background-position: -100%; }
+}
+
+.animate-shine {
+  background-size: 200% auto;
+  animation: shine 5s linear infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-100%); }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.animate-rotate {
+  animation: rotate 4s linear infinite;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none; 
+  }
+  
+  a, button, input, select, textarea, [role="button"] {
+    cursor: none; 
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.page-fade-in {
+  animation: fadeIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in-up {
+  animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fade-in-down {
+  animation: slideInDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-zoom-in {
+  animation: zoomIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes spin-once {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-once {
+  animation: spin-once 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f8f9fa;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background-color: #16A34A; 
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  margin-left: -4px; 
+  margin-top: -4px;
+  will-change: transform;
+  transition: transform 0.1s ease-out, opacity 0.2s;
+}
+
+.cursor-follower {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(22, 163, 74, 0.4); 
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  margin-left: -20px; 
+  margin-top: -20px;
+  will-change: transform;
+  transition: transform 0.15s ease-out, width 0.3s ease, height 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+.cursor-dot.is-hovering {
+  transform: scale(0); 
+  opacity: 0;
+}
+
+.cursor-follower.is-hovering {
+  width: 60px;
+  height: 60px;
+  margin-left: -30px;
+  margin-top: -30px;
+  background-color: rgba(22, 163, 74, 0.1);
+  border-color: transparent;
+  backdrop-filter: blur(1px);
+}
