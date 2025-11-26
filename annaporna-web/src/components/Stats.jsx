@@ -9,10 +9,113 @@ import ShinyText from './react-bits/ShinyText';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver'; 
 import { BorderTrail } from './motion-primitives/BorderTrail';
 import bgImage from '../assets/bridging.png'; 
-
+const AnimatedNumber = ({ n }) => {
+  const [ref, isVisible] = useIntersectionObserver({ threshold: 0.1 });
+  const targetValue = parseFloat(n.replace(/,/g, ''));
+  const { number } = useSpring({
+    from: { number: 0 },
+    number: isVisible ? targetValue : 0, 
+    delay: 200,
+    config: { mass: 1, tension: 20, friction: 10 },
+  });
+  return (
+    <animated.span ref={ref}>
+      {number.to(val => Math.floor(val).toLocaleString())}
+    </animated.span>
+  );
+};
 
 const Stats = () => {
-  
+  const statsData = [
+    { 
+      id: 1, 
+      label: "Meals Served", 
+      value: "1,000", 
+      prefix: "",
+      suffix: "+", 
+      icon: Utensils, 
+      color: "text-orange-600", 
+      bg: "bg-orange-100", 
+      desc: "Fresh meals delivered to the needy" 
+    },
+    { 
+      id: 2, 
+      label: "Food Saved", 
+      value: "4,500", 
+      prefix: "",
+      suffix: " kg", 
+      icon: Activity, 
+      color: "text-green-600", 
+      bg: "bg-green-100", 
+      desc: "Perfectly edible surplus rescued" 
+    },
+    { 
+      id: 3, 
+      label: "Partner NGOs", 
+      value: "45", 
+      prefix: "",
+      suffix: "+", 
+      icon: Users, 
+      color: "text-blue-600", 
+      bg: "bg-blue-100", 
+      desc: "Verified organizations in our network" 
+    },
+    { 
+      id: 4, 
+      label: "Active Donors", 
+      value: "500", 
+      prefix: "",
+      suffix: "+", 
+      icon: HeartHandshake, 
+      color: "text-purple-600", 
+      bg: "bg-purple-100", 
+      desc: "Restaurants & caterers contributing" 
+    },
+    { 
+      id: 5, 
+      label: "CO2 Prevented", 
+      value: "2,200", 
+      prefix: "",
+      suffix: " kg", 
+      icon: Leaf, 
+      color: "text-emerald-600", 
+      bg: "bg-emerald-100", 
+      desc: "Greenhouse emissions stopped" 
+    },
+    { 
+      id: 6, 
+      label: "Value Recovered", 
+      value: "12.5", 
+      prefix: "₹",
+      suffix: " k", 
+      icon: IndianRupee, 
+      color: "text-yellow-600", 
+      bg: "bg-yellow-100", 
+      desc: "Worth of food saved from bins" 
+    },
+    { 
+      id: 7, 
+      label: "Cities Covered", 
+      value: "50", 
+      prefix: "",
+      suffix: "+", 
+      icon: MapPin, 
+      color: "text-red-600", 
+      bg: "bg-red-100", 
+      desc: "Operating across major hubs" 
+    },
+    { 
+      id: 8, 
+      label: "Volunteer Hours", 
+      value: "3,400", 
+      prefix: "",
+      suffix: "+", 
+      icon: Clock, 
+      color: "text-indigo-600", 
+      bg: "bg-indigo-100", 
+      desc: "Time dedicated by our heroes" 
+    }
+  ];
 
   return (
     <section className="relative py-20 overflow-hidden">
